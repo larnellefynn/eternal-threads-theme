@@ -1,0 +1,43 @@
+{%- comment -%}
+  Renders an uploaded image, or a bundled campaign photo when none is picked.
+  Accepts:
+  - image: image object from a setting (optional)
+  - fallback: asset filename, e.g. 'et-hero.jpg' (optional)
+  - alt: alt text
+  - position: CSS object-position, e.g. 'center 30%'
+  - sizes: sizes attribute
+  - eager: true to load immediately
+{%- endcomment -%}
+{%- liquid
+  assign pos = position | default: 'center center'
+  assign img_sizes = sizes | default: '100vw'
+  assign style_attr = 'object-position: ' | append: pos
+  assign load = 'lazy'
+  if eager
+    assign load = 'eager'
+  endif
+-%}
+{%- if image != blank -%}
+  {%- assign the_alt = alt | default: image.alt -%}
+  {{
+    image
+    | image_url: width: 2400
+    | image_tag:
+      widths: '400, 600, 800, 1000, 1200, 1600, 2000, 2400',
+      sizes: img_sizes,
+      loading: load,
+      alt: the_alt,
+      class: 'et-img',
+      style: style_attr
+  }}
+{%- elsif fallback != blank -%}
+  <img
+    src="{{ fallback | asset_url }}"
+    alt="{{ alt | escape }}"
+    class="et-img"
+    width="1600"
+    height="2000"
+    loading="{{ load }}"
+    style="object-position: {{ pos }};"
+  >
+{%- endif -%}

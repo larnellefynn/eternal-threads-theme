@@ -1,0 +1,18 @@
+<div class="et-full" style="height: {{ section.settings.height }}px; margin-top: {{ section.settings.gap_top }}px;">
+  {%- render 'et-image', image: section.settings.image, fallback: section.settings.fallback, alt: section.settings.image_alt, position: section.settings.focal -%}
+</div>
+
+{% schema %}
+{
+  "name": "ET full-width photo",
+  "settings": [
+    { "type": "range", "id": "height", "label": "Height", "min": 360, "max": 1000, "step": 20, "unit": "px", "default": 820 },
+    { "type": "range", "id": "gap_top", "label": "Space above", "min": 0, "max": 64, "step": 2, "unit": "px", "default": 2 },
+    { "type": "image_picker", "id": "image", "label": "Photo" },
+    { "type": "text", "id": "fallback", "label": "Built-in photo" },
+    { "type": "text", "id": "image_alt", "label": "Alt text" },
+    { "type": "text", "id": "focal", "label": "Focal point", "default": "center 35%" }
+  ],
+  "presets": [ { "name": "ET full-width photo" } ]
+}
+{% endschema %}

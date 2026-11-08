@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "banner": {
+      "type": "et-banner",
+      "settings": {
+        "fallback": "et-banner-pants.jpg",
+        "image_alt": "Dancer in the Eternal Sweat Pant and crew, low crouch with one hand raised",
+        "focal": "65% 30%",
+        "height": 560,
+        "text_tone": "dark",
+        "text_position": "bottom",
+        "show_crumbs": true,
+        "eyebrow": "",
+        "heading": "",
+        "text": "Cut wide to move. One pant, done properly.",
+        "button_label_1": "",
+        "button_link_1": "",
+        "button_label_2": "",
+        "button_link_2": ""
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24,
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid"
+  ]
+}

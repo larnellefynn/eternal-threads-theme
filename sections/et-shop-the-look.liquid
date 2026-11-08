@@ -1,0 +1,118 @@
+{%- liquid
+  assign p1 = section.settings.product_1
+  assign p2 = section.settings.product_2
+  assign total = 0
+  if p1 != blank
+    assign total = total | plus: p1.selected_or_first_available_variant.price
+  endif
+  if p2 != blank
+    assign total = total | plus: p2.selected_or_first_available_variant.price
+  endif
+-%}
+<section class="et-look color-{{ section.settings.color_scheme }}" aria-labelledby="EtLook-{{ section.id }}">
+  <div class="et-look__media">
+    {%- render 'et-image',
+      image: section.settings.image,
+      fallback: section.settings.fallback,
+      alt: section.settings.image_alt,
+      position: section.settings.focal,
+      sizes: '(min-width: 990px) 50vw, 100vw'
+    -%}
+    <span class="et-look__pin" aria-hidden="true" style="left: {{ section.settings.pin1_x }}%; top: {{ section.settings.pin1_y }}%;">01</span>
+    <span class="et-look__pin" aria-hidden="true" style="left: {{ section.settings.pin2_x }}%; top: {{ section.settings.pin2_y }}%;">02</span>
+  </div>
+
+  <form class="et-look__panel" data-et-look action="{{ routes.cart_add_url }}" method="post">
+    <div>
+      <p class="et-label et-muted">{{ section.settings.eyebrow }}</p>
+      <h2 id="EtLook-{{ section.id }}" style="margin: 0.8rem 0 0; font-size: 4.8rem;">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="et-look__list">
+      {%- for prod in (1..2) -%}
+        {%- if forloop.index == 1 -%}{%- assign p = p1 -%}{%- else -%}{%- assign p = p2 -%}{%- endif -%}
+        {%- if p != blank -%}
+          <div class="et-look__row">
+            <span class="et-look__num">0{{ forloop.index }}</span>
+            {%- if p.featured_image -%}
+              {{ p.featured_image | image_url: width: 200 | image_tag: class: 'et-look__thumb', alt: '', loading: 'lazy' }}
+            {%- endif -%}
+            <div class="et-look__info">
+              <a href="{{ p.url }}">{{ p.title }}</a>
+              <span>{{ p.selected_or_first_available_variant.price | money }}</span>
+            </div>
+            <label class="et-look__size">Size
+              <select name="et-look-{{ forloop.index }}" data-et-look-select>
+                {%- for v in p.variants -%}
+                  <option value="{{ v.id }}" data-price="{{ v.price }}"{% unless v.available %} disabled{% endunless %}{% if v.id == p.selected_or_first_available_variant.id %} selected{% endif %}>{{ v.title }}{% unless v.available %} — sold out{% endunless %}</option>
+                {%- endfor -%}
+              </select>
+            </label>
+          </div>
+        {%- else -%}
+          <div class="et-look__row"><span class="et-look__num">0{{ forloop.index }}</span><span class="et-muted">Pick product {{ forloop.index }} in the theme editor.</span></div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="et-look__total">
+      <span class="et-label">Together</span>
+      <span style="font-size: 2rem;" data-et-look-total>{{ total | money }}</span>
+    </div>
+    <button type="submit" class="button" {% if p1 == blank or p2 == blank %}disabled{% endif %}>{{ section.settings.button_label }}</button>
+    <p class="et-look__status" role="status" aria-live="polite" data-et-look-status></p>
+  </form>
+</section>
+
+<script>
+  (function () {
+    var form = document.currentScript.previousElementSibling.querySelector('[data-et-look]');
+    if (!form) return;
+    var selects = form.querySelectorAll('[data-et-look-select]');
+    var totalEl = form.querySelector('[data-et-look-total]');
+    var statusEl = form.querySelector('[data-et-look-status]');
+    var fmt = new Intl.NumberFormat(document.documentElement.lang || 'en-AU', { style: 'currency', currency: {{ cart.currency.iso_code | json }} });
+    function updateTotal() {
+      var sum = 0;
+      selects.forEach(function (s) { sum += parseInt(s.options[s.selectedIndex].dataset.price, 10) || 0; });
+      totalEl.textContent = fmt.format(sum / 100);
+    }
+    selects.forEach(function (s) { s.addEventListener('change', updateTotal); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var items = Array.prototype.map.call(selects, function (s) { return { id: parseInt(s.value, 10), quantity: 1 }; });
+      statusEl.textContent = 'Adding…';
+      fetch({{ routes.cart_add_url | append: '.js' | json }}, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: items })
+      }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+        .then(function (res) {
+          if (!res.ok) { statusEl.textContent = res.body.description || 'Could not add those sizes. Try another size.'; return; }
+          window.location.href = {{ routes.cart_url | json }};
+        })
+        .catch(function () { statusEl.textContent = 'Something went wrong. Please try again.'; });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ET shop the look",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" },
+    { "type": "image_picker", "id": "image", "label": "Look photo" },
+    { "type": "text", "id": "fallback", "label": "Built-in photo (used when no image is picked)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "focal", "label": "Focal point", "default": "center 60%" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Shop the look" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Jersey + sweat pant" },
+    { "type": "product", "id": "product_1", "label": "Product 01" },
+    { "type": "range", "id": "pin1_x", "label": "Pin 01 across", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 45 },
+    { "type": "range", "id": "pin1_y", "label": "Pin 01 down", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 44 },
+    { "type": "product", "id": "product_2", "label": "Product 02" },
+    { "type": "range", "id": "pin2_x", "label": "Pin 02 across", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 47 },
+    { "type": "range", "id": "pin2_y", "label": "Pin 02 down", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 78 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add both to bag" }
+  ],
+  "presets": [ { "name": "ET shop the look" } ]
+}
+{% endschema %}

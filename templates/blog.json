@@ -1,0 +1,72 @@
+{
+  "sections": {
+    "banner": {
+      "type": "et-banner",
+      "settings": {
+        "fallback": "et-article-blur-duo.jpg",
+        "image_alt": "Two dancers mid-turn, blurred by a slow shutter",
+        "focal": "center 40%",
+        "height": 440,
+        "text_tone": "light",
+        "text_position": "bottom",
+        "show_crumbs": false,
+        "eyebrow": "Stories from the studio, the street and the real people of Hobart",
+        "heading": "Journal",
+        "text": "",
+        "button_label_1": "",
+        "button_link_1": "",
+        "button_label_2": "",
+        "button_link_2": ""
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "layout": "grid",
+        "show_image": true,
+        "image_height": "large",
+        "show_date": false,
+        "show_author": false,
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
+    },
+    "signup": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "New stories, when they land",
+            "heading_size": "h2"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>One email when a new story is up. Nothing else.</p>"
+          }
+        },
+        "email_form": {
+          "type": "email_form"
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "main",
+    "signup"
+  ]
+}

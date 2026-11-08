@@ -1,0 +1,43 @@
+<section class="et-split color-{{ section.settings.color_scheme }}" aria-labelledby="EtSplit-{{ section.id }}">
+  {%- capture media -%}
+    <div class="et-split__media">
+      {%- render 'et-image',
+        image: section.settings.image,
+        fallback: section.settings.fallback,
+        alt: section.settings.image_alt,
+        position: section.settings.focal,
+        sizes: '(min-width: 990px) 50vw, 100vw'
+      -%}
+    </div>
+  {%- endcapture -%}
+  {%- if section.settings.image_first -%}{{ media }}{%- endif -%}
+  <div class="et-split__copy">
+    {%- if section.settings.eyebrow != blank -%}<p class="et-label et-muted">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 id="EtSplit-{{ section.id }}" class="et-split__title">{{ section.settings.heading | newline_to_br }}</h2>
+    {%- if section.settings.text != blank -%}<div class="et-split__text">{{ section.settings.text }}</div>{%- endif -%}
+    {%- if section.settings.link_label != blank -%}
+      <a class="et-link" href="{{ section.settings.link | default: routes.root_url }}" style="align-self: flex-start;">{{ section.settings.link_label }} &rarr;</a>
+    {%- endif -%}
+  </div>
+  {%- unless section.settings.image_first -%}{{ media }}{%- endunless -%}
+</section>
+
+{% schema %}
+{
+  "name": "ET image + text",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-4" },
+    { "type": "checkbox", "id": "image_first", "label": "Image on the left", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "fallback", "label": "Built-in photo (used when no image is picked)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "focal", "label": "Focal point", "default": "center 40%" },
+    { "type": "text", "id": "eyebrow", "label": "Small label" },
+    { "type": "textarea", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "link_label", "label": "Link label" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [ { "name": "ET image + text" } ]
+}
+{% endschema %}

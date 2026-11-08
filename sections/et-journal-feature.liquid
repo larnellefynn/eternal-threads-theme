@@ -1,0 +1,49 @@
+{%- liquid
+  assign b = section.settings.blog | default: blogs.journal | default: blogs.news
+  assign a = b.articles.first
+-%}
+<section class="color-{{ section.settings.color_scheme }}" aria-labelledby="EtJournal-{{ section.id }}">
+  {%- if section.settings.show_head -%}
+    <div class="et-section-head">
+      <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+        <p class="et-label et-muted">{{ section.settings.eyebrow }}</p>
+        <h2 id="EtJournal-{{ section.id }}">{{ section.settings.heading }}</h2>
+      </div>
+      {%- if b != blank -%}<a class="et-link" href="{{ b.url }}">Read the journal</a>{%- endif -%}
+    </div>
+  {%- endif -%}
+  <a class="et-feature" href="{% if a %}{{ a.url }}{% elsif b %}{{ b.url }}{% else %}{{ routes.root_url }}{% endif %}"{% unless section.settings.show_head %} aria-labelledby="EtJournal-{{ section.id }}"{% endunless %}>
+    <span class="et-feature__media">
+      {%- if a.image -%}
+        {%- render 'et-image', image: a.image, alt: a.title, position: section.settings.focal, sizes: '(min-width: 990px) 55vw, 100vw' -%}
+      {%- else -%}
+        {%- render 'et-image', fallback: section.settings.fallback, alt: '', position: section.settings.focal -%}
+      {%- endif -%}
+    </span>
+    <span class="et-feature__copy">
+      <span class="et-label et-muted">{{ section.settings.kicker }}</span>
+      <span class="et-feature__title h2"{% unless section.settings.show_head %} id="EtJournal-{{ section.id }}"{% endunless %}>{{ a.title | default: section.settings.fallback_title }}</span>
+      <span class="et-feature__text">{% if a.excerpt != blank %}{{ a.excerpt | strip_html | truncatewords: 30 }}{% else %}{{ section.settings.fallback_text }}{% endif %}</span>
+      <span class="et-link" style="text-decoration: underline;">Read the story &rarr;</span>
+    </span>
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "ET journal feature",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-3" },
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "checkbox", "id": "show_head", "label": "Show section heading", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Stories from the studio" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Journal" },
+    { "type": "text", "id": "kicker", "label": "Label above post title", "default": "Introduction · 2 min read" },
+    { "type": "text", "id": "focal", "label": "Focal point", "default": "58% center" },
+    { "type": "text", "id": "fallback", "label": "Built-in photo (used until the post has an image)", "default": "et-journal-cover.jpg" },
+    { "type": "text", "id": "fallback_title", "label": "Title until a post exists", "default": "A uniform for the creatively driven" },
+    { "type": "text", "id": "fallback_text", "label": "Text until a post exists", "default": "From the floors and studios of Hobart. Who we are, and who we make for." }
+  ],
+  "presets": [ { "name": "ET journal feature" } ]
+}
+{% endschema %}

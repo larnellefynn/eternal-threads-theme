@@ -1,0 +1,118 @@
+{%- comment -%}
+  Fit note, trust lines and accordions for the product page.
+  Reads metafields first (custom.fit_note, custom.size_chart, custom.materials_care);
+  falls back to the built-in Eternal Threads copy, matched on the product title.
+{%- endcomment -%}
+{%- liquid
+  assign t = product.title | downcase
+  assign key = ''
+  if t contains 'gift'
+    assign key = 'gift'
+  elsif t contains 'pant'
+    assign key = 'pant'
+  elsif t contains 'crew' or t contains 'pullover' or t contains 'sweater'
+    assign key = 'crew'
+  elsif t contains 'white tee' or t contains 'essential'
+    assign key = 'tee'
+  elsif t contains 'l/s' or t contains 'long'
+    assign key = 'ls'
+  elsif t contains 's/s' or t contains 'short'
+    assign key = 'ss'
+  endif
+
+  case key
+    when 'ls'
+      assign fit = 'Relaxed fit, regular length, dropped shoulders.'
+      assign r1 = 'Chest' | append: '|114|119|124|129|134'
+      assign r2 = 'Length' | append: '|69|70|71|72|73'
+    when 'ss'
+      assign fit = 'Boxy, cropped fit.'
+      assign r1 = 'Chest|121.5|126.5|131.5|136.5|141.5'
+      assign r2 = 'Length|62.5|63.5|64.5|65.5|66.5'
+    when 'tee'
+      assign fit = 'Oversized fit, dropped shoulders.'
+      assign r1 = 'Chest|107|112|117|122|127'
+      assign r2 = 'Length|67|68|69|70|71'
+    when 'crew'
+      assign fit = 'Cropped fit, dropped shoulders.'
+      assign r1 = 'Chest|108|113|118|123|128'
+      assign r2 = 'Length|64|65|66|67|68'
+    when 'pant'
+      assign fit = 'Wide, straight leg with an elastic waist.'
+      assign r1 = 'Waist|71|76|81|86|91'
+      assign r2 = 'Inseam|73|73|73|73|73'
+    else
+      assign fit = ''
+      assign r1 = ''
+      assign r2 = ''
+  endcase
+
+  if product.metafields.custom.fit_note != blank
+    assign fit = product.metafields.custom.fit_note.value
+  endif
+-%}
+
+{%- if fit != blank -%}
+  <p class="et-fit">{{ fit }}</p>
+{%- endif -%}
+
+{%- unless key == 'gift' -%}
+<ul class="et-trustlist">
+  <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 4 H11 V13 H1 Z M11 7 H14.5 L17 10 V13 H11" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Ships from Australia, tracked</li>
+  <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 6 H13 A3.5 3.5 0 0 1 13 13 H6 M4 6 L7 3 M4 6 L7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>No change-of-mind returns. Check the size guide before you order.</li>
+  <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 8 H14 V16 H4 Z M6 8 V5 A3 3 0 0 1 12 5 V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>Secure checkout · Shop Pay, Apple Pay, Google Pay, Afterpay</li>
+</ul>
+{%- endunless -%}
+
+<div class="et-tabs">
+  <details open>
+    <summary>Details</summary>
+    <div class="et-tabs__body rte">{{ product.description }}</div>
+  </details>
+
+  {%- if product.metafields.custom.size_chart != blank or r1 != blank -%}
+    <details id="size-fit">
+      <summary>Size &amp; fit</summary>
+      <div class="et-tabs__body">
+        {%- if product.metafields.custom.size_chart != blank -%}
+          {{ product.metafields.custom.size_chart | metafield_tag }}
+        {%- else -%}
+          <table class="et-size-table">
+            <caption>Garment measurements in cm</caption>
+            <thead><tr><th scope="col"></th><th scope="col">XS</th><th scope="col">S</th><th scope="col">M</th><th scope="col">L</th><th scope="col">XL</th></tr></thead>
+            <tbody>
+              {%- for row in (1..2) -%}
+                {%- if forloop.index == 1 -%}{%- assign cells = r1 | split: '|' -%}{%- else -%}{%- assign cells = r2 | split: '|' -%}{%- endif -%}
+                <tr>
+                  {%- for c in cells -%}
+                    {%- if forloop.first -%}<th scope="row">{{ c }}</th>{%- else -%}<td>{{ c }}</td>{%- endif -%}
+                  {%- endfor -%}
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- endif -%}
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.materials_care != blank -%}
+    <details>
+      <summary>Materials &amp; care</summary>
+      <div class="et-tabs__body">{{ product.metafields.custom.materials_care | metafield_tag }}</div>
+    </details>
+  {%- endif -%}
+
+  {%- unless key == 'gift' -%}
+  <details>
+    <summary>Shipping &amp; returns</summary>
+    <div class="et-tabs__body">
+      <p><strong>Delivery.</strong> Ships from Australia with tracking.</p>
+      <p><strong>No change-of-mind returns.</strong> We don't accept returns, refunds or exchanges for change of mind or incorrect sizing. Check the measurements in the size guide before you order.</p>
+      <p><strong>Faulty or incorrect items.</strong> Under Australian Consumer Law, we refund or replace items with a major defect, or that don't match their description. Email us within 7 days of delivery with your order number and clear photos.</p>
+      <p><strong>Approval first.</strong> Returns sent without our written approval are rejected. Approved returns must be unworn, unwashed and in original condition with tags attached.</p>
+      {%- if shop.refund_policy -%}<p><a href="{{ shop.refund_policy.url }}">Read the full returns policy</a></p>{%- endif -%}
+    </div>
+  </details>
+  {%- endunless -%}
+</div>

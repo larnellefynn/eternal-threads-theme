@@ -1,0 +1,33 @@
+{%- comment -%} Editorial article layout: centred headline, full-bleed featured image, narrow body. {%- endcomment -%}
+<article class="color-{{ section.settings.color_scheme }}">
+  <header class="et-article-head">
+    <nav class="et-banner__crumbs et-muted" aria-label="Breadcrumb"><a href="{{ blog.url }}">{{ blog.title }}</a>{% if article.tags.first %} / <span>{{ article.tags.first }}</span>{% endif %}</nav>
+    <h1>{{ article.title }}</h1>
+    {%- if section.settings.byline != blank -%}<p class="et-muted" style="margin: 0; font-size: 1.3rem;">{{ section.settings.byline }}</p>{%- endif -%}
+  </header>
+  {%- if article.image -%}
+    {%- assign img_alt = article.image.alt | default: article.title -%}
+    <div class="et-full" style="height: {{ section.settings.image_height }}px;">
+      {%- render 'et-image', image: article.image, alt: img_alt, position: section.settings.focal, eager: true -%}
+    </div>
+  {%- endif -%}
+  <div class="et-article-body">
+    <div class="rte">{{ article.content }}</div>
+    {%- if section.settings.signoff != blank -%}
+      <p class="et-label et-muted" style="font-size: 1.5rem; letter-spacing: 0.1em;">{{ section.settings.signoff }}</p>
+    {%- endif -%}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "ET article",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-3" },
+    { "type": "text", "id": "byline", "label": "Line under headline", "default": "Eternal Threads · Hobart, Tasmania" },
+    { "type": "range", "id": "image_height", "label": "Featured image height", "min": 400, "max": 900, "step": 20, "unit": "px", "default": 720 },
+    { "type": "text", "id": "focal", "label": "Featured image focal point", "default": "60% center" },
+    { "type": "text", "id": "signoff", "label": "Sign-off line", "default": "Educate. Empower. Elevate." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+<section class="et-tiles" aria-label="{{ section.settings.label | escape }}">
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign c = block.settings.collection
+      assign url = block.settings.link | default: c.url | default: routes.all_products_collection_url
+      assign title = block.settings.title | default: c.title
+    -%}
+    <a href="{{ url }}" class="et-tile et-tile--{{ block.settings.tone }}" {{ block.shopify_attributes }}>
+      {%- render 'et-image',
+        image: block.settings.image,
+        fallback: block.settings.fallback,
+        alt: block.settings.image_alt,
+        position: block.settings.focal,
+        sizes: '(min-width: 990px) 33vw, 100vw'
+      -%}
+      <span class="et-tile__copy">
+        <span class="et-tile__title h2">{{ title }}</span>
+        <span class="et-label">{{ block.settings.cta }} &rarr;</span>
+      </span>
+    </a>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "ET category tiles",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Accessible label", "default": "Shop by category" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "link", "label": "Link (overrides collection)" },
+        { "type": "text", "id": "title", "label": "Title (blank = collection name)" },
+        { "type": "text", "id": "cta", "label": "Call to action", "default": "Shop now" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Built-in photo (used when no image is picked)" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text" },
+        { "type": "text", "id": "focal", "label": "Focal point", "default": "center 25%" },
+        { "type": "select", "id": "tone", "label": "Text colour", "default": "light", "options": [ { "value": "light", "label": "Cream" }, { "value": "dark", "label": "Black" } ] }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [ { "name": "ET category tiles", "blocks": [ { "type": "tile" }, { "type": "tile" }, { "type": "tile" } ] } ]
+}
+{% endschema %}

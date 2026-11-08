@@ -1,0 +1,188 @@
+{
+  "sections": {
+    "hero": {
+      "type": "et-banner",
+      "settings": {
+        "fallback": "et-hero.jpg",
+        "image_alt": "Man showing the denim back and atom graphic of the Eternal crew, a woman in the black Football S/S Tee resting her hand on his shoulder",
+        "focal": "center 12%",
+        "height": 860,
+        "text_tone": "light",
+        "text_position": "bottom",
+        "show_crumbs": false,
+        "eyebrow": "New season \u00b7 Shot in Hobart",
+        "heading": "Built to move",
+        "text": "Cut wide. Made heavy. Worn by the dancers who shaped it.",
+        "button_label_1": "Shop the collection",
+        "button_link_1": "shopify://collections/all",
+        "button_label_2": "Read our story",
+        "button_link_2": "shopify://blogs/journal"
+      }
+    },
+    "tiles": {
+      "type": "et-category-tiles",
+      "blocks": {
+        "t1": {
+          "type": "tile",
+          "settings": {
+            "link": "shopify://collections/shirts",
+            "title": "Shirts",
+            "cta": "Shop now",
+            "fallback": "et-tile-shirts.jpg",
+            "image_alt": "Two women in the black Football S/S Tee and the 07 Football L/S Tee",
+            "focal": "center 20%",
+            "tone": "light"
+          }
+        },
+        "t2": {
+          "type": "tile",
+          "settings": {
+            "link": "shopify://collections/pants",
+            "title": "Pants",
+            "cta": "Shop now",
+            "fallback": "et-tile-pants.jpg",
+            "image_alt": "Two people in the wide black Eternal Sweat Pant",
+            "focal": "center 45%",
+            "tone": "light"
+          }
+        },
+        "t3": {
+          "type": "tile",
+          "settings": {
+            "link": "shopify://collections/accessories",
+            "title": "Accessories",
+            "cta": "Shop now",
+            "fallback": "et-tile-accessories.jpg",
+            "image_alt": "Woman in the Essential White Tee, friends blurred in motion around her",
+            "focal": "center 35%",
+            "tone": "light"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "label": "Shop by category"
+      }
+    },
+    "new_in": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New in",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "ethos": {
+      "type": "et-split",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "image_first": true,
+        "fallback": "et-ethos.jpg",
+        "image_alt": "Four young dancers in Eternal Threads pieces",
+        "focal": "center 40%",
+        "eyebrow": "The ethos",
+        "heading": "Educate.\nEmpower.\nElevate.",
+        "text": "<p>Premium, minimal streetwear with dance in its DNA. Designed with the real people of Hobart, cut to move however you do.</p>",
+        "link_label": "Our story",
+        "link": "shopify://blogs/journal"
+      }
+    },
+    "look": {
+      "type": "et-shop-the-look",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "fallback": "et-look.jpg",
+        "image_alt": "Full-length look: 07 Football L/S Tee with the Eternal Sweat Pant",
+        "focal": "center 60%",
+        "eyebrow": "Shop the look",
+        "heading": "Jersey + sweat pant",
+        "pin1_x": 45,
+        "pin1_y": 44,
+        "pin2_x": 47,
+        "pin2_y": 78,
+        "button_label": "Add both to bag"
+      }
+    },
+    "journal": {
+      "type": "et-journal-feature",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "show_head": true,
+        "eyebrow": "Stories from the studio",
+        "heading": "Journal",
+        "kicker": "Introduction \u00b7 2 min read",
+        "focal": "58% center",
+        "fallback": "et-journal-cover.jpg",
+        "fallback_title": "A uniform for the creatively driven",
+        "fallback_text": "From the floors and studios of Hobart. Who we are, and who we make for."
+      }
+    },
+    "trust": {
+      "type": "et-trust-row",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "heading": "Ships from Australia",
+            "text": "Tracked delivery, shipped from Australia."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "heading": "Sizing that's measured",
+            "text": "Full garment measurements on every piece. We don't take change-of-mind returns, so check your size first. Faulty items are covered under Australian Consumer Law."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "heading": "Secure checkout",
+            "text": "Shop Pay, Apple Pay and Google Pay, or split it into 4 interest-free payments with Afterpay."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "tiles",
+    "new_in",
+    "ethos",
+    "look",
+    "journal",
+    "trust"
+  ]
+}

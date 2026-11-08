@@ -1,0 +1,29 @@
+<section class="et-trust color-{{ section.settings.color_scheme }}" aria-label="Shopping with us">
+  {%- for block in section.blocks -%}
+    <div class="et-trust__item" {{ block.shopify_attributes }}>
+      <h3>{{ block.settings.heading }}</h3>
+      <p>{{ block.settings.text }}</p>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "ET trust row",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [ { "name": "ET trust row", "blocks": [ { "type": "item" }, { "type": "item" }, { "type": "item" } ] } ]
+}
+{% endschema %}

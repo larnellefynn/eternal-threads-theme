@@ -1,0 +1,26 @@
+<div class="et-pair" style="margin-top: {{ section.settings.gap_top }}px;">
+  <div class="et-pair__item">
+    {%- render 'et-image', image: section.settings.image_1, fallback: section.settings.fallback_1, alt: section.settings.alt_1, position: section.settings.focal_1, sizes: '(min-width: 750px) 50vw, 100vw' -%}
+  </div>
+  <div class="et-pair__item">
+    {%- render 'et-image', image: section.settings.image_2, fallback: section.settings.fallback_2, alt: section.settings.alt_2, position: section.settings.focal_2, sizes: '(min-width: 750px) 50vw, 100vw' -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ET photo pair",
+  "settings": [
+    { "type": "range", "id": "gap_top", "label": "Space above", "min": 0, "max": 64, "step": 2, "unit": "px", "default": 2 },
+    { "type": "image_picker", "id": "image_1", "label": "Left photo" },
+    { "type": "text", "id": "fallback_1", "label": "Left built-in photo" },
+    { "type": "text", "id": "alt_1", "label": "Left alt text" },
+    { "type": "text", "id": "focal_1", "label": "Left focal point", "default": "center 35%" },
+    { "type": "image_picker", "id": "image_2", "label": "Right photo" },
+    { "type": "text", "id": "fallback_2", "label": "Right built-in photo" },
+    { "type": "text", "id": "alt_2", "label": "Right alt text" },
+    { "type": "text", "id": "focal_2", "label": "Right focal point", "default": "center 35%" }
+  ],
+  "presets": [ { "name": "ET photo pair" } ]
+}
+{% endschema %}
