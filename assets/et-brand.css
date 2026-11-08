@@ -71,13 +71,13 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4, .et-d {
 /* Full-bleed banner with text over the photo; stacks on phones. */
 .et-banner { position: relative; overflow: hidden; }
 .et-banner__media { position: absolute; inset: 0; }
-.et-banner__copy { position: absolute; left: var(--et-gutter); right: var(--et-gutter); display: flex; flex-direction: column; gap: 1.4rem; max-width: 52rem; }
+.et-banner__copy { position: absolute; left: var(--et-gutter); right: var(--et-gutter); display: flex; flex-direction: column; gap: 1.4rem; max-width: 84rem; }
 .et-banner__copy--bottom { bottom: 5.6rem; }
 .et-banner__copy--top { top: 5.6rem; }
 .et-banner__copy--right { left: auto; align-items: flex-start; }
 .et-banner--light .et-banner__copy, .et-banner--light .et-banner__copy a { color: var(--et-cream); }
 .et-banner--dark .et-banner__copy, .et-banner--dark .et-banner__copy a { color: var(--et-ink); }
-.et-banner__title { margin: 0; font-size: clamp(6.4rem, 8vw, 12.8rem); line-height: 0.88; }
+.et-banner__title { margin: 0; color: inherit; font-size: clamp(4.8rem, 7.5vw, 12.8rem); line-height: 0.88; overflow-wrap: normal; word-break: normal; hyphens: none; }
 .et-banner__text { margin: 0; font-size: 2rem; line-height: 1.45; max-width: 42rem; }
 .et-banner__crumbs { font-size: 1.3rem; margin: 0; }
 .et-banner__crumbs a { text-decoration: none; }
