@@ -96,7 +96,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4, .et-d {
 .et-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr)); gap: 0; }
 .et-tile { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; text-decoration: none; background: #c3c5c7; }
 .et-tile__copy { position: absolute; left: 3.2rem; bottom: 3.2rem; display: flex; flex-direction: column; gap: 0.6rem; }
-.et-tile__title { margin: 0; font-size: 4.4rem; line-height: 1; }
+.et-tile__title { margin: 0; color: inherit; font-size: 4.4rem; line-height: 1; }
 .et-tile--light .et-tile__copy { color: var(--et-cream); }
 .et-tile--dark .et-tile__copy { color: var(--et-ink); }
 .et-tile img { transition: transform .6s ease; }
