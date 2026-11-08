@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -10,7 +19,7 @@
         "text_tone": "light",
         "text_position": "bottom",
         "show_crumbs": false,
-        "eyebrow": "New season \u00b7 Shot in Hobart",
+        "eyebrow": "New season · Shot in Hobart",
         "heading": "Built to move",
         "text": "Cut wide. Made heavy. Worn by the dancers who shaped it.",
         "button_label_1": "Shop the collection",
@@ -25,6 +34,7 @@
         "t1": {
           "type": "tile",
           "settings": {
+            "collection": "",
             "link": "shopify://collections/shirts",
             "title": "Shirts",
             "cta": "Shop now",
@@ -37,6 +47,7 @@
         "t2": {
           "type": "tile",
           "settings": {
+            "collection": "",
             "link": "shopify://collections/pants",
             "title": "Pants",
             "cta": "Shop now",
@@ -49,6 +60,7 @@
         "t3": {
           "type": "tile",
           "settings": {
+            "collection": "",
             "link": "shopify://collections/accessories",
             "title": "Accessories",
             "cta": "Shop now",
@@ -71,18 +83,18 @@
     "new_in": {
       "type": "featured-collection",
       "settings": {
+        "collection": "all",
+        "products_to_show": 4,
         "title": "New in",
         "heading_size": "h1",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 4,
         "columns_desktop": 4,
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "link",
-        "enable_desktop_slider": false,
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
@@ -120,8 +132,10 @@
         "focal": "center 60%",
         "eyebrow": "Shop the look",
         "heading": "Jersey + sweat pant",
+        "product_1": "07-football-l-s-tee",
         "pin1_x": 45,
         "pin1_y": 44,
+        "product_2": "eternal-sweat-pant",
         "pin2_x": 47,
         "pin2_y": 78,
         "button_label": "Add both to bag"
@@ -131,10 +145,11 @@
       "type": "et-journal-feature",
       "settings": {
         "color_scheme": "scheme-3",
+        "blog": "",
         "show_head": true,
         "eyebrow": "Stories from the studio",
         "heading": "Journal",
-        "kicker": "Introduction \u00b7 2 min read",
+        "kicker": "Introduction · 2 min read",
         "focal": "58% center",
         "fallback": "et-journal-cover.jpg",
         "fallback_title": "A uniform for the creatively driven",
