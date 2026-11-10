@@ -7,7 +7,7 @@
         "byline": "Eternal Threads \u00b7 Hobart, Tasmania",
         "image_height": 720,
         "focal": "60% center",
-        "signoff": ""
+        "signoff": "Educate. Empower. Elevate."
       }
     },
     "shop": {
@@ -37,10 +37,47 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "pair1": {
+      "type": "et-photo-pair",
+      "settings": {
+        "gap_top": 0,
+        "fallback_1": "et-article-blur-duo.jpg",
+        "alt_1": "Two dancers mid-turn under a concrete ceiling, blurred by a slow shutter",
+        "focal_1": "center 40%",
+        "fallback_2": "et-article-dance-duo.jpg",
+        "alt_2": "Man in the Eternal crew leaning into a move, a woman in the black Football S/S Tee behind him",
+        "focal_2": "center 30%"
+      }
+    },
+    "full": {
+      "type": "et-full-photo",
+      "settings": {
+        "height": 820,
+        "gap_top": 2,
+        "fallback": "et-article-crew-back.jpg",
+        "image_alt": "Dancer mid-move showing the denim back and atom graphic of the Eternal crew",
+        "focal": "center 35%"
+      }
+    },
+    "pair2": {
+      "type": "et-photo-pair",
+      "settings": {
+        "gap_top": 2,
+        "fallback_1": "et-article-your-story.jpg",
+        "alt_1": "Dancer in the black Football S/S Tee standing still while the crew blurs past",
+        "focal_1": "center 30%",
+        "fallback_2": "et-article-oversized.jpg",
+        "alt_2": "Woman in the Eternal crew with friends moving past in a slow-shutter blur",
+        "focal_2": "center 30%"
+      }
     }
   },
   "order": [
     "main",
+    "pair1",
+    "full",
+    "pair2",
     "shop"
   ]
 }
