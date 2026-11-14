@@ -74,8 +74,32 @@
     <details id="size-fit">
       <summary>Size &amp; fit</summary>
       <div class="et-tabs__body">
-        {%- if product.metafields.custom.size_chart != blank -%}
-          {{ product.metafields.custom.size_chart | metafield_tag }}
+        {%- assign sc = product.metafields.custom.size_chart -%}
+        {%- if sc != blank and sc.type == 'multi_line_text_field' -%}
+          {%- assign sc_lines = sc.value | newline_to_br | split: '<br />' -%}
+          <table class="et-size-table">
+            <caption>Garment measurements in cm</caption>
+            {%- assign row = 0 -%}
+            {%- for line in sc_lines -%}
+              {%- assign l = line | strip -%}
+              {%- if l == blank -%}{%- continue -%}{%- endif -%}
+              {%- assign row = row | plus: 1 -%}
+              {%- assign cells = l | split: '|' -%}
+              {%- if row == 2 -%}<tbody>{%- endif -%}
+              <tr>
+                {%- for c in cells -%}
+                  {%- assign v = c | strip -%}
+                  {%- if row == 1 -%}
+                    <th scope="col">{%- unless forloop.first -%}{{ v }}{%- endunless -%}</th>
+                  {%- elsif forloop.first -%}<th scope="row">{{ v }}</th>
+                  {%- else -%}<td>{{ v }}</td>{%- endif -%}
+                {%- endfor -%}
+              </tr>
+            {%- endfor -%}
+            {%- if row > 1 -%}</tbody>{%- endif -%}
+          </table>
+        {%- elsif sc != blank -%}
+          {{ sc | metafield_tag }}
         {%- else -%}
           <table class="et-size-table">
             <caption>Garment measurements in cm</caption>
