@@ -88,21 +88,22 @@
               {%- assign l = line | strip -%}
               {%- if l == blank -%}{%- continue -%}{%- endif -%}
               {%- unless l contains '|' -%}
-                {%- assign sc_notes = sc_notes | append: '<p class="et-fit">' | append: l | append: '</p>' -%}
+                {%- assign sc_notes = sc_notes | append: '<p class="et-size-note">' | append: l | append: '</p>' -%}
                 {%- continue -%}
               {%- endunless -%}
               {%- assign row = row | plus: 1 -%}
               {%- assign cells = l | split: '|' -%}
-              {%- if row == 2 -%}<tbody>{%- endif -%}
+              {%- if row == 1 -%}<thead>{%- elsif row == 2 -%}<tbody>{%- endif -%}
               <tr>
                 {%- for c in cells -%}
                   {%- assign v = c | strip -%}
                   {%- if row == 1 -%}
-                    <th scope="col">{%- unless forloop.first -%}{{ v }}{%- endunless -%}</th>
-                  {%- elsif forloop.first -%}<th scope="row">{{ v }}</th>
+                    <th scope="col">{%- unless forloop.first -%}{{ v | upcase }}{%- endunless -%}</th>
+                  {%- elsif forloop.first -%}<th scope="row">{{ v | downcase | capitalize }}</th>
                   {%- else -%}<td>{{ v }}</td>{%- endif -%}
                 {%- endfor -%}
               </tr>
+              {%- if row == 1 -%}</thead>{%- endif -%}
             {%- endfor -%}
             {%- if row > 1 -%}</tbody>{%- endif -%}
           </table>
