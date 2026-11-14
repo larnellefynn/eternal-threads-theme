@@ -49,6 +49,8 @@
 
   if product.metafields.custom.fit_note != blank
     assign fit = product.metafields.custom.fit_note.value
+  elsif product.metafields.custom.custom_fit_note != blank
+    assign fit = product.metafields.custom.custom_fit_note.value
   endif
 -%}
 
@@ -70,11 +72,11 @@
     <div class="et-tabs__body rte">{{ product.description }}</div>
   </details>
 
-  {%- if product.metafields.custom.size_chart != blank or r1 != blank -%}
+  {%- if product.metafields.custom.size_chart != blank or product.metafields.custom.custom_size_chart != blank or r1 != blank -%}
     <details id="size-fit">
       <summary>Size &amp; fit</summary>
       <div class="et-tabs__body">
-        {%- assign sc = product.metafields.custom.size_chart -%}
+        {%- assign sc = product.metafields.custom.size_chart | default: product.metafields.custom.custom_size_chart -%}
         {%- if sc != blank and sc.type != 'rich_text_field' -%}
           {%- assign sc_text = sc.value | append: '' -%}
           {%- assign sc_lines = sc_text | newline_to_br | split: '<br />' -%}
