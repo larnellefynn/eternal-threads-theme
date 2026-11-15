@@ -176,3 +176,8 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4, .et-d {
 .et-size-table thead th { border-bottom: 1px solid var(--et-ink); }
 .et-size-table tbody th { text-align: left; font-weight: 600; }
 .et-size-note { margin: 1.2rem 0 0; font-size: 1.4rem; font-weight: 400; color: var(--et-charcoal); }
+
+/* Product info: keep clear of the sticky header */
+@media screen and (min-width: 750px) {
+  .product__column-sticky { top: calc(var(--header-height, 8rem) + 3.2rem); transition: top .25s ease; }
+}
